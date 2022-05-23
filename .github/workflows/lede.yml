@@ -37,9 +37,7 @@ jobs:
         cd lede
         git clone https://github.com/zjt37/zheng package/zheng/theme
         svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/zheng/luci-app-openclash
-        git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        git clone https://github.com/sirpdboy/luci-app-netdata package/zheng/luci-app-netdata
-        svn co https://github.com/sirpdboy/sirpdboy-package/trunk/netdata package/zheng/netdata
+        git clone https://github.com/fw876/helloworld package/zheng/ssrplu
 
     - name: 更新和安装软件包
       run: |
@@ -55,15 +53,15 @@ jobs:
         sed -i "s/192.168.1.1/192.168.1.3/g" package/base-files/files/bin/config_generate
         #  修改默认主题
         sed -i "s/bootstrap/atmaterial/g" feeds/luci/collections/luci/Makefile
+        # 汉化实时监控
+        rm -rf ./feeds/luci/applications/luci-app-netdata/  
+        git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/ 
         #  删除主题
         rm -rf ./feeds/freifunk/themes
         rm -rf ./feeds/luci/themes/luci-theme-bootstrap
         rm -rf ./feeds/luci/themes/luci-theme-argon
         rm -rf ./feeds/luci/themes/luci-theme-netgear
         rm -rf ./feeds/luci/themes/luci-theme-material
-        #  删除重复插件
-        rm -rf ./feeds/packages/admin/netdata
-        rm -rf ./feeds/luci/applications/luci-app-netdata
         # 调整网络共享到系统菜单
         sed -i 's/\"services\"/\"status\"/g' feeds/luci/applications/luci-app-samba/luasrc/controller/samba.lua
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
