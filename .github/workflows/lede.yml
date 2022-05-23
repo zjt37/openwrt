@@ -64,8 +64,6 @@ jobs:
         rm -rf ./feeds/luci/themes/luci-theme-material
         # 调整网络共享到系统菜单
         sed -i 's/\"services\"/\"status\"/g' feeds/luci/applications/luci-app-samba/luasrc/controller/samba.lua
-        sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
-        
         
 
     - name: 配置固件文件
