@@ -182,10 +182,8 @@ jobs:
     - name: 整理发布文件
       id: assemble_artifact
       run: |
-         mkdir openwrt
-         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" "./openwrt/openwrt-x86-64-generic-squashfs-combined.img"
-         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img" "./openwrt/openwrt-x86-64-generic-squashfs-combined-efi.img"
-         zip OpenWrt.zip ./openwrt/*
+         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" "./openwrt.img"
+         zip OpenWrt.zip ./openwrt.img
          release_tag="openwrt-$(date +%Y-%m-%d)"
          echo "##[set-output name=release_tag;]$release_tag" 
          
