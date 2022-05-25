@@ -29,13 +29,10 @@ jobs:
       run: |
         git clone https://github.com/coolsnowwolf/lede
         cd lede
+        # 下载软件包
         git clone https://github.com/zjt37/zheng package/zheng/theme
-        git clone https://github.com/xiaorouji/openwrt-passwall package/zheng/passwall
-        svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/zheng/passwall2
         svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/zheng/luci-app-openclash
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        git clone https://github.com/sirpdboy/luci-app-netdata package/zheng/luci-app-netdata
-        svn co https://github.com/sirpdboy/sirpdboy-package/trunk/netdata package/zheng/netdata
 
     - name: 更新和安装软件包
       run: |
@@ -57,9 +54,9 @@ jobs:
         rm -rf ./feeds/luci/themes/luci-theme-argon
         rm -rf ./feeds/luci/themes/luci-theme-netgear
         rm -rf ./feeds/luci/themes/luci-theme-material
-        #  删除重复插件
-        rm -rf ./feeds/packages/admin/netdata
-        rm -rf ./feeds/luci/applications/luci-app-netdata
+        #  汉化实时监控
+        rm -rf ./feeds/luci/applications/luci-app-netdata/
+        git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
         # 调整网络共享到系统菜单
         sed -i 's/\"services\"/\"status\"/g' feeds/luci/applications/luci-app-samba/luasrc/controller/samba.lua
 
