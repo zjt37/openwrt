@@ -75,14 +75,9 @@ jobs:
         CONFIG_TARGET_x86=y
         CONFIG_TARGET_x86_64=y
         CONFIG_TARGET_x86_64_DEVICE_generic=y
-        # CONFIG_GRUB_CONSOLE is not set
         CONFIG_GRUB_IMAGES=y
         # CONFIG_PACKAGE_UnblockNeteaseMusic-Go is not set
         # CONFIG_PACKAGE_adbyby is not set
-        CONFIG_PACKAGE_blkid=y
-        CONFIG_PACKAGE_btrfs-progs=y
-        CONFIG_PACKAGE_dnsforwarder=y
-        CONFIG_PACKAGE_dnsproxy=y
         # CONFIG_PACKAGE_etherwake is not set
         # CONFIG_PACKAGE_iptables-mod-ipsec is not set
         # CONFIG_PACKAGE_kmod-crypto-cbc is not set
@@ -92,48 +87,23 @@ jobs:
         # CONFIG_PACKAGE_kmod-crypto-hmac is not set
         # CONFIG_PACKAGE_kmod-crypto-kpp is not set
         # CONFIG_PACKAGE_kmod-crypto-md5 is not set
-        CONFIG_PACKAGE_kmod-fs-btrfs=y
         # CONFIG_PACKAGE_kmod-ipsec is not set
         # CONFIG_PACKAGE_kmod-ipt-ipsec is not set
-        # CONFIG_PACKAGE_kmod-ipt-offload is not set
         # CONFIG_PACKAGE_kmod-iptunnel6 is not set
-        CONFIG_PACKAGE_kmod-lib-raid6=y
-        CONFIG_PACKAGE_kmod-lib-xor=y
-        CONFIG_PACKAGE_kmod-lib-zstd=y
-        CONFIG_PACKAGE_kmod-md-mod=y
-        CONFIG_PACKAGE_kmod-md-raid0=y
-        CONFIG_PACKAGE_kmod-md-raid1=y
-        CONFIG_PACKAGE_kmod-md-raid10=y
-        CONFIG_PACKAGE_kmod-md-raid456=y
-        # CONFIG_PACKAGE_kmod-nf-flow is not set
-        CONFIG_PACKAGE_kmod-shortcut-fe=y
-        CONFIG_PACKAGE_kmod-shortcut-fe-cm=y
+        CONFIG_PACKAGE_kmod-tg3=y
         # CONFIG_PACKAGE_kmod-wireguard is not set
-        CONFIG_PACKAGE_libattr=y
-        CONFIG_PACKAGE_liblzo=y
         # CONFIG_PACKAGE_libminiupnpc is not set
         # CONFIG_PACKAGE_libnatpmp is not set
-        CONFIG_PACKAGE_lsblk=y
+        # CONFIG_PACKAGE_libstdcpp is not set
         # CONFIG_PACKAGE_luci-app-accesscontrol is not set
         # CONFIG_PACKAGE_luci-app-adbyby-plus is not set
         # CONFIG_PACKAGE_luci-app-arpbind is not set
-        # CONFIG_PACKAGE_luci-app-autoreboot is not set
         # CONFIG_PACKAGE_luci-app-ddns is not set
-        CONFIG_PACKAGE_luci-app-diskman=y
-        CONFIG_PACKAGE_luci-app-diskman_INCLUDE_kmod_md_linear=y
-        CONFIG_PACKAGE_luci-app-diskman_INCLUDE_kmod_md_raid456=y
-        CONFIG_PACKAGE_luci-app-diskman_INCLUDE_mdadm=y
         # CONFIG_PACKAGE_luci-app-ipsec-vpnd is not set
         CONFIG_PACKAGE_luci-app-netdata=y
         CONFIG_PACKAGE_luci-app-openclash=y
         # CONFIG_PACKAGE_luci-app-ramfree is not set
-        # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
-        # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
-        CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_DNSFORWARDER=y
-        CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_DNSPROXY=y
-        CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_SHORTCUT_FE=y
         # CONFIG_PACKAGE_luci-app-unblockmusic is not set
-        # CONFIG_PACKAGE_luci-app-unblockmusic_INCLUDE_UnblockNeteaseMusic_Go is not set
         # CONFIG_PACKAGE_luci-app-upnp is not set
         # CONFIG_PACKAGE_luci-app-vlmcsd is not set
         # CONFIG_PACKAGE_luci-app-vsftpd is not set
@@ -141,14 +111,10 @@ jobs:
         # CONFIG_PACKAGE_luci-app-wol is not set
         # CONFIG_PACKAGE_luci-app-xlnetacc is not set
         # CONFIG_PACKAGE_luci-app-zerotier is not set
-        CONFIG_PACKAGE_luci-i18n-diskman-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-netdata-zh-cn=y
         # CONFIG_PACKAGE_luci-proto-wireguard is not set
-        CONFIG_PACKAGE_mdadm=y
         # CONFIG_PACKAGE_miniupnpd is not set
         CONFIG_PACKAGE_netdata=y
-        CONFIG_PACKAGE_parted=y
-        CONFIG_PACKAGE_smartmontools=y
         # CONFIG_PACKAGE_strongswan is not set
         # CONFIG_PACKAGE_vlmcsd is not set
         # CONFIG_PACKAGE_vsftpd-alt is not set
