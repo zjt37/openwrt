@@ -90,7 +90,6 @@ jobs:
         # CONFIG_PACKAGE_kmod-ipsec is not set
         # CONFIG_PACKAGE_kmod-ipt-ipsec is not set
         # CONFIG_PACKAGE_kmod-iptunnel6 is not set
-        CONFIG_PACKAGE_kmod-tg3=y
         # CONFIG_PACKAGE_kmod-wireguard is not set
         # CONFIG_PACKAGE_libminiupnpc is not set
         # CONFIG_PACKAGE_libnatpmp is not set
