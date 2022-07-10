@@ -191,7 +191,7 @@ jobs:
       id: assemble_artifact
       run: |
          cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img" "./openwrt-x86-64-generic-squashfs-rootfs.img"
-         unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
+         sudo unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
          sudo tar zcf ./squashfs-root/openwrt.rootfs.tar.gz ./*
          zip CTOpenWrt.zip ./openwrt.rootfs.tar.gz
          release_tag="CTopenwrt-$(date +%Y-%m-%d)"
