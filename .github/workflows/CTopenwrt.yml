@@ -11,8 +11,8 @@ on:
   schedule:
     - cron:  1 0 * * 6
   
-  #watch:
-  #  types: [started]
+  watch:
+    types: [started]
     
 
 jobs:
@@ -198,9 +198,13 @@ jobs:
     - name: 整理发布文件
       id: assemble_artifact
       run: |
-         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" "./openwrt.img"
-         zip OpenWrt.zip ./openwrt.img
-         release_tag="openwrt-$(date +%Y-%m-%d)"
+         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img" "./openwrt-x86-64-generic-squashfs-rootfs.img"
+         unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
+         cd squashfs-root
+         tar zcf ../openwrt.rootfs.tar.gz ./*
+         cd
+         zip CTOpenWrt.zip ./openwrt.rootfs.tar.gz
+         release_tag="CTopenwrt-$(date +%Y-%m-%d)"
          echo "##[set-output name=release_tag;]$release_tag" 
          
     - name: 配置发布信息
@@ -220,8 +224,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHU_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: OpenWrt.zip
-        asset_name: OpenWrt.zip
+        asset_path: CTOpenWrt.zip
+        asset_name: CTOpenWrt.zip
         asset_content_type: application/zip
 
        
