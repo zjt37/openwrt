@@ -36,3 +36,4 @@ jobs:
       run: |
         wget https://github.com/zjt37/openwrt/releases/download/CTopenwrt-2022-07-11/CTOpenWrt.zip
         unzip CTOpenWrt.zip
+        unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
