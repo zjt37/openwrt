@@ -33,7 +33,9 @@ jobs:
         sudo apt install -y tar squashfs-tools
 
     - name: 下载固件源码和软件包
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHU_TOKEN }}
       run: |
         wget https://github.com/zjt37/openwrt/releases/download/CTopenwrt-2022-07-11/CTOpenWrt.zip
         unzip CTOpenWrt.zip
-        sudo unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
+        unsquashfs openwrt-x86-64-generic-squashfs-rootfs.img
