@@ -35,4 +35,4 @@ jobs:
     - name: 下载固件源码和软件包
       run: |
         wget https://github.com/zjt37/openwrt/releases/download/CTopenwrt-2022-07-11/CTOpenWrt.zip
-        gzip -d CTOpenWrt.zip
+        unzip CTOpenWrt.zip
