@@ -1,0 +1,94 @@
+name: 编译openwrt固件(测试)
+
+on: 
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: true
+        default: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: 准备开始
+      uses: actions/checkout@main
+
+    - name: 安装系统依赖
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo apt update -y
+        sudo apt full-upgrade -y
+        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+
+    - name: 下载固件源码和软件包
+      run: |
+        git clone https://github.com/coolsnowwolf/lede
+        cd lede
+        # 下载软件包
+        git clone https://github.com/zjt37/zheng package/zheng/theme
+        svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/zheng/luci-app-openclash
+        git clone https://github.com/fw876/helloworld package/zheng/ssrplus
+
+    - name: 更新和安装软件包
+      run: |
+        cd lede
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        ./scripts/feeds install -a
+        
+    - name: 常用配置修改
+      run: |
+        cd lede
+        # 修改默认IP
+        sed -i "s/192.168.1.1/192.168.1.30/g" package/base-files/files/bin/config_generate
+        #  修改默认主题
+        sed -i "s/bootstrap/atmaterial/g" feeds/luci/collections/luci/Makefile
+        #  删除主题
+        rm -rf ./feeds/freifunk/themes
+        rm -rf ./feeds/luci/themes/luci-theme-bootstrap
+        rm -rf ./feeds/luci/themes/luci-theme-argon
+        rm -rf ./feeds/luci/themes/luci-theme-netgear
+        rm -rf ./feeds/luci/themes/luci-theme-material
+        #  汉化实时监控
+        rm -rf ./feeds/luci/applications/luci-app-netdata/
+        git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
+        # 调整网络共享到系统菜单
+        sed -i 's/\"services\"/\"status\"/g' feeds/luci/applications/luci-app-samba/luasrc/controller/samba.lua
+
+    - name: 连接SSH
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+
+    - name: 下载DL库
+      run: |
+        cd lede
+        make defconfig
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    
+        
+    - name: 开始编译固件
+      run: |
+        cd lede
+        echo -e "$(nproc) thread build."
+        make -j$(nproc) V=s
+        
+  
+    - name: 上传固件
+      uses: actions/upload-artifact@v2
+      with:
+        name: OpenWrt
+        path: lede/bin/targets/x86/64
+
+       
