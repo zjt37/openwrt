@@ -31,7 +31,6 @@ jobs:
         cd lede
         # 下载软件包
         git clone https://github.com/zjt37/zheng package/zheng/theme
-        svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/zheng/luci-app-openclash
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
 
     - name: 更新和安装软件包
@@ -50,7 +49,6 @@ jobs:
         sed -i "s/bootstrap/atmaterial/g" feeds/luci/collections/luci/Makefile
         #  删除主题
         rm -rf ./feeds/freifunk/themes
-        rm -rf ./feeds/luci/themes/luci-theme-bootstrap
         rm -rf ./feeds/luci/themes/luci-theme-argon
         rm -rf ./feeds/luci/themes/luci-theme-netgear
         rm -rf ./feeds/luci/themes/luci-theme-material
