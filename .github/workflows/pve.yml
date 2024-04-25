@@ -23,7 +23,5 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        git pull
-        apt-get update
-        apt install devscripts asciidoc-base automake bc bison cpio dh-python bison flex git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libpve-common-perl libslang2-dev libssl-devlibtool lintian lz4 perl-modules rsync sphinx-common xmlto zlib1g-dev dwarves net-tools htop vnstat        apt-get autoremove --purge
-        apt-get clean
+        apt-get install devscripts asciidoc-base automake bc bison cpio dh-python bison flex git kmod libdw-dev libelf-dev libiberty-dev libnuma-dev libpve-common-perl libslang2-dev libssl-devlibtool lintian lz4 perl-modules rsync sphinx-common xmlto zlib1g-dev dwarves net-tools htop vnstat        apt-get autoremove --purge
+        
