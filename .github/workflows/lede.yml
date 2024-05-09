@@ -248,5 +248,11 @@ jobs:
         cd lede
         echo -e "$(nproc) thread build."
         make -j$(nproc) V=s
-        
+
+    - name: 上传固件
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      with:
+        name: OpenWrt
+        path: openwrt/bin/targets/
         
