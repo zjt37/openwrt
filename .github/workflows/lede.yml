@@ -89,6 +89,7 @@ jobs:
         sudo -E timedatectl set-timezone "Asia/Shanghai"
         
     - name: 下载固件源码和软件包
+      working-directory: ./
       run: |
         # 下载固件源码
         git clone https://github.com/coolsnowwolf/lede
