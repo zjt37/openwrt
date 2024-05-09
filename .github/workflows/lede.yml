@@ -250,7 +250,7 @@ jobs:
         make -j$(nproc) V=s
         
   
-    - name: 上传固件
+     - name: 上传固件
         uses: actions/upload-artifact@v2
         with:
           name: OpenWrt_firmware
