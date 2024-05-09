@@ -250,33 +250,10 @@ jobs:
         make -j$(nproc) V=s
         
   
-    - name: 整理发布文件
-      id: assemble_artifact
-      run: |
-         cp -f "lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img" "./openwrt.img"
-         zip OpenWrt.zip ./openwrt.img
-         release_tag="openwrt-$(date +%Y-%m-%d)"
-         echo "##[set-output name=release_tag;]$release_tag" 
-         
-    - name: 配置发布信息
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHU_TOKEN }}
-      with:
-        tag_name: ${{ steps.assemble_artifact.outputs.release_tag }}
-        release_name: ${{ steps.assemble_artifact.outputs.release_tag }}
-        draft: false
-        prerelease: false
-        
-    - name: 发布固件到Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHU_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: OpenWrt.zip
-        asset_name: OpenWrt.zip
-        asset_content_type: application/zip
+    - name: 上传固件
+        uses: actions/upload-artifact@v2
+        with:
+          name: OpenWrt_firmware
+          path: openwrt/bin/targets/
 
        
