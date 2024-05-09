@@ -50,13 +50,12 @@ jobs:
         git clone https://github.com/gd0772/package package/gd772
         git clone https://github.com/kenzok8/small package/gd772/passwall
         rm -rf package/gd772/passwall/luci-app-passwall2 package/gd772/passwall/luci-app-ssr-plus package/gd772/passwall/luci-app-bypass
-        git clone -b main https://github.com/fw876/helloworld package/gd772/ssrplus
+        git clone https://github.com/fw876/helloworld package/gd772/ssrplus
         rm -rf ./feeds/luci/applications/luci-app-netdata
         git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
         sed -i 's/\"services\"/\"nas\"/g' feeds/luci/applications/luci-app-samba4/luasrc/controller/samba4.lua
         sed -i 's/TTYD 终端/命令行/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
-        sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
         sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-app-turboacc/po/zh-cn/turboacc.po
         
 
