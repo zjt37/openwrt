@@ -29,8 +29,9 @@ jobs:
       run: |
         sudo apt update -y
         sudo apt full-upgrade -y
-        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
-
+        sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
+    
+    
     - name: 下载固件源码和软件包
       run: |
         # 下载固件源码
@@ -46,26 +47,10 @@ jobs:
     - name: 常用配置修改
       run: |
         cd lede
-        rm -rf ./feeds/packages/net/smartdns
-        rm -rf ./feeds/luci/applications/luci-app-jd-dailybonus
-        rm -rf ./feeds/luci/applications/luci-app-rp-pppoe-server
-        rm -rf ./feeds/luci/applications/luci-app-usb-printer
-        rm -rf ./feeds/luci/applications/luci-app-dockerman
-        rm -rf ./feeds/luci/applications/luci-app-unblockmusic
-        rm -rf ./feeds/luci/applications/luci-app-ipsec-vpnd
-        git clone https://github.com/zjt37/zheng package/zheng/theme
-        svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/zheng/luci-app-openclash
-        git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        git clone https://github.com/xiaorouji/openwrt-passwall package/zheng/passwall && git clone -b luci https://github.com/xiaorouji/openwrt-passwall && mv openwrt-passwall/luci-app-passwall package/zheng/passwall && rm -rf openwrt-passwall
-        git clone https://github.com/pymumu/luci-app-smartdns.git -b lede ./package/zheng/luci-app-smartdns
-        git clone https://github.com/pymumu/openwrt-smartdns.git ./feeds/packages/net/smartdns
-        svn export https://github.com/kiddin9/openwrt-packages/trunk/luci-app-adguardhome package/zheng/luci-app-adguardhome
-        sed -i "s/bootstrap/atmaterial/g" feeds/luci/collections/luci/Makefile
-        rm -rf ./feeds/freifunk/themes
-        rm -rf ./feeds/luci/themes/luci-theme-bootstrap
-        rm -rf ./feeds/luci/themes/luci-theme-argon
-        rm -rf ./feeds/luci/themes/luci-theme-netgear
-        rm -rf ./feeds/luci/themes/luci-theme-material
+        git clone https://github.com/gd0772/package package/gd772
+        git clone https://github.com/kenzok8/small package/gd772/passwall
+        rm -rf package/gd772/passwall/luci-app-passwall2 package/gd772/passwall/luci-app-ssr-plus package/gd772/passwall/luci-app-bypass
+        git clone -b main https://github.com/fw876/helloworld package/gd772/ssrplus
         rm -rf ./feeds/luci/applications/luci-app-netdata
         git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
@@ -84,117 +69,72 @@ jobs:
         CONFIG_TARGET_x86=y
         CONFIG_TARGET_x86_64=y
         CONFIG_TARGET_x86_64_DEVICE_generic=y
-        # CONFIG_GRUB_CONSOLE is not set
         # CONFIG_GRUB_EFI_IMAGES is not set
         CONFIG_GRUB_IMAGES=y
         CONFIG_PACKAGE_bash=y
-        # CONFIG_PACKAGE_blkid is not set
+        CONFIG_PACKAGE_blkid=y
         CONFIG_PACKAGE_boost=y
-        CONFIG_PACKAGE_boost-date_time=y
         CONFIG_PACKAGE_boost-program_options=y
         CONFIG_PACKAGE_boost-system=y
-        CONFIG_PACKAGE_brook=y
-        CONFIG_PACKAGE_chinadns-ng=y
         CONFIG_PACKAGE_coreutils-nohup=y
+        CONFIG_PACKAGE_coreutils-timeout=y
         # CONFIG_PACKAGE_etherwake is not set
+        # CONFIG_PACKAGE_grub2-bios-setup is not set
         # CONFIG_PACKAGE_grub2-efi is not set
         CONFIG_PACKAGE_haproxy=y
-        CONFIG_PACKAGE_https-dns-proxy=m
-        CONFIG_PACKAGE_hysteria=y
         CONFIG_PACKAGE_ipt2socks=y
         CONFIG_PACKAGE_iptables-mod-conntrack-extra=y
         CONFIG_PACKAGE_iptables-mod-iprange=y
         CONFIG_PACKAGE_iptables-mod-socket=y
-        CONFIG_PACKAGE_kcptun-client=y
-        CONFIG_PACKAGE_kcptun-config=y
-        # CONFIG_PACKAGE_kmod-crypto-kpp is not set
         CONFIG_PACKAGE_kmod-inet-diag=y
         CONFIG_PACKAGE_kmod-ipt-conntrack-extra=y
         CONFIG_PACKAGE_kmod-ipt-iprange=y
         CONFIG_PACKAGE_kmod-ipt-socket=y
-        # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
-        CONFIG_PACKAGE_kmod-nf-log6=y
-        CONFIG_PACKAGE_kmod-nf-reject6=y
+        CONFIG_PACKAGE_kmod-netlink-diag=y
         CONFIG_PACKAGE_kmod-nf-socket=y
-        CONFIG_PACKAGE_kmod-nft-core=y
-        CONFIG_PACKAGE_kmod-nft-nat=y
-        CONFIG_PACKAGE_kmod-nft-socket=y
-        CONFIG_PACKAGE_kmod-nft-tproxy=y
-        # CONFIG_PACKAGE_kmod-wireguard is not set
         CONFIG_PACKAGE_libcap-bin=y
         CONFIG_PACKAGE_libcap-bin-capsh-shell="/bin/sh"
-        CONFIG_PACKAGE_libevent2=y
         CONFIG_PACKAGE_libltdl=y
         CONFIG_PACKAGE_liblua5.3=y
-        # CONFIG_PACKAGE_libminiupnpc is not set
-        # CONFIG_PACKAGE_libnatpmp is not set
-        # CONFIG_PACKAGE_libparted is not set
+        CONFIG_PACKAGE_libparted=y
         CONFIG_PACKAGE_libruby=y
+        CONFIG_PACKAGE_libstdcpp=y
+        CONFIG_PACKAGE_libuv=y
+        CONFIG_PACKAGE_libwebsockets-full=y
         CONFIG_PACKAGE_libyaml=y
         # CONFIG_PACKAGE_luci-app-accesscontrol is not set
-        # CONFIG_PACKAGE_luci-app-adbyby-plus is not set
-        CONFIG_PACKAGE_luci-app-adguardhome=y
-        # CONFIG_PACKAGE_luci-app-adguardhome_INCLUDE_binary is not set
         # CONFIG_PACKAGE_luci-app-arpbind is not set
         # CONFIG_PACKAGE_luci-app-autoreboot is not set
         # CONFIG_PACKAGE_luci-app-ddns is not set
-        # CONFIG_PACKAGE_luci-app-diskman is not set
-        # CONFIG_PACKAGE_luci-app-filetransfer is not set
-        CONFIG_PACKAGE_luci-app-https-dns-proxy=m
+        CONFIG_PACKAGE_luci-app-diskman=y
         CONFIG_PACKAGE_luci-app-netdata=y
-        # CONFIG_PACKAGE_luci-app-nlbwmon is not set
         CONFIG_PACKAGE_luci-app-openclash=y
         CONFIG_PACKAGE_luci-app-passwall=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Brook=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ChinaDNS_NG=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_NaiveProxy=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Server=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Client=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Rust_Server=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Simple_Obfs=y
+        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_SingBox=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Trojan_Plus=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_V2ray_Plugin=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray=y
-        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Xray_Plugin=y
         CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
-        CONFIG_PACKAGE_luci-app-passwall_Nftables_Transparent_Proxy=y
-        # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
-        # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
         CONFIG_PACKAGE_luci-app-smartdns=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Hysteria=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_IPT2Socks=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Kcptun=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_NaiveProxy=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Redsocks2=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Shadowsocks_V2ray_Plugin=y
-        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
+        CONFIG_PACKAGE_luci-app-ttyd=y
         # CONFIG_PACKAGE_luci-app-upnp is not set
         # CONFIG_PACKAGE_luci-app-vlmcsd is not set
         # CONFIG_PACKAGE_luci-app-vsftpd is not set
-        # CONFIG_PACKAGE_luci-app-wireguard is not set
         # CONFIG_PACKAGE_luci-app-wol is not set
-        # CONFIG_PACKAGE_luci-app-xlnetacc is not set
-        # CONFIG_PACKAGE_luci-app-zerotier is not set
-        CONFIG_PACKAGE_luci-compat=y
-        CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
-        CONFIG_PACKAGE_luci-i18n-https-dns-proxy-zh-cn=m
+        CONFIG_PACKAGE_luci-i18n-diskman-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-netdata-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-smartdns-zh-cn=y
-        # CONFIG_PACKAGE_luci-lib-fs is not set
-        # CONFIG_PACKAGE_luci-proto-wireguard is not set
+        CONFIG_PACKAGE_luci-i18n-ttyd-zh-cn=y
+        CONFIG_PACKAGE_luci-theme-atmaterial=y
         # CONFIG_PACKAGE_miniupnpd is not set
-        CONFIG_PACKAGE_naiveproxy=y
         CONFIG_PACKAGE_netdata=y
-        # CONFIG_PACKAGE_nlbwmon is not set
-        # CONFIG_PACKAGE_parted is not set
-        CONFIG_PACKAGE_redsocks2=y
+        CONFIG_PACKAGE_parted=y
         CONFIG_PACKAGE_ruby=y
         CONFIG_PACKAGE_ruby-bigdecimal=y
         CONFIG_PACKAGE_ruby-date=y
@@ -206,30 +146,33 @@ jobs:
         CONFIG_PACKAGE_ruby-stringio=y
         CONFIG_PACKAGE_ruby-strscan=y
         CONFIG_PACKAGE_ruby-yaml=y
-        CONFIG_PACKAGE_shadowsocks-rust-sslocal=y
-        CONFIG_PACKAGE_shadowsocks-rust-ssserver=y
+        CONFIG_PACKAGE_shadowsocks-libev-ss-local=y
+        CONFIG_PACKAGE_shadowsocks-libev-ss-redir=y
+        CONFIG_PACKAGE_sing-box=y
         CONFIG_PACKAGE_smartdns=y
-        # CONFIG_PACKAGE_smartmontools is not set
-        CONFIG_PACKAGE_trojan=y
+        CONFIG_PACKAGE_smartmontools=y
         CONFIG_PACKAGE_trojan-plus=y
+        CONFIG_PACKAGE_ttyd=y
         CONFIG_PACKAGE_unzip=y
-        CONFIG_PACKAGE_v2ray-core=y
         CONFIG_PACKAGE_v2ray-plugin=y
         # CONFIG_PACKAGE_vlmcsd is not set
         # CONFIG_PACKAGE_vsftpd-alt is not set
-        # CONFIG_PACKAGE_wireguard-tools is not set
         # CONFIG_PACKAGE_wol is not set
-        CONFIG_PACKAGE_xray-plugin=y
-        # CONFIG_PACKAGE_zerotier is not set
-        # CONFIG_TARGET_IMAGES_GZIP is not set
-        CONFIG_TARGET_KERNEL_PARTSIZE=160
-        CONFIG_TARGET_ROOTFS_PARTSIZE=740
-        # CONFIG_VMDK_IMAGES is not set
+        CONFIG_PARTED_READLINE=y
+        CONFIG_SING_BOX_WITH_CLASH_API=y
+        CONFIG_SING_BOX_WITH_DHCP=y
+        CONFIG_SING_BOX_WITH_ECH=y
+        CONFIG_SING_BOX_WITH_GVISOR=y
+        CONFIG_SING_BOX_WITH_QUIC=y
+        CONFIG_SING_BOX_WITH_UTLS=y
+        CONFIG_SING_BOX_WITH_WIREGUARD=y
+        CONFIG_TARGET_KERNEL_PARTSIZE=200
+        CONFIG_TARGET_ROOTFS_PARTSIZE=700
+        CONFIG_TARGET_ROOTFS_TARGZ=y
         CONFIG_boost-compile-visibility-hidden=y
         CONFIG_boost-runtime-shared=y
         CONFIG_boost-static-and-shared-libs=y
         CONFIG_boost-variant-release=y
-        CONFIG_PACKAGE_adbyby=y
         EOF
         sed -i 's/^[ \t]*//g' ./.config
         make defconfig
