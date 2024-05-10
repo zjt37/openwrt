@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    - name: 准备开始
+      uses: actions/checkout@main
+      
     - name: 清理磁盘空间
       uses: easimon/maximize-build-space@master
       with: 
@@ -30,9 +33,6 @@ jobs:
         remove-haskell: 'true'
         remove-codeql: 'true'
         remove-docker-images: 'true'
-   
-    - name: 准备开始
-      uses: actions/checkout@main
 
     - name: 安装系统依赖
       env:
@@ -79,8 +79,7 @@ jobs:
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
         sed -i 's/TTYD 终端/命令行/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
         sed -i 's/Turbo ACC 网络加速/网络加速/g' feeds/luci/applications/luci-app-turboacc/po/zh-cn/turboacc.po
-        
-
+  
     - name: 配置固件文件
       run: |
         cd lede
@@ -198,15 +197,12 @@ jobs:
         sed -i 's/^[ \t]*//g' ./.config
         make defconfig
 
-
     - name: 下载DL库
       run: |
         cd lede
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
-    
         
     - name: 开始编译固件
       run: |
@@ -219,4 +215,3 @@ jobs:
       with:
         name: OpenWrt
         path: lede/bin/targets/
-        
