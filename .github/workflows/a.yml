@@ -2,11 +2,11 @@ name: 编译openwrt固件(测试）
 
 on: 
   workflow_dispatch:
-    inputs:
+   inputs:
       ssh:
-        description: 'SSH远程'
-        required: true
-        default: 'ssh-actions'
+        description: '[ssh-actions]改成[ssh],再按[Run workflow]按钮启动,则开启SSH连接配置固件'
+        required: false
+        default: 'ssh'
     
 
 jobs:
