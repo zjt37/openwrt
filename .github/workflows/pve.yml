@@ -77,10 +77,39 @@ jobs:
         sed -i "/pci_find_ext_capability(dev, PCI_EXT_CAP_ID_ACS))/d" patches/kernel/0004-pci-Enable-overrides-for-missing-ACS-capabilities-4..patch
         sed -i "s/(dev) ||/(dev))/g" patches/kernel/0004-pci-Enable-overrides-for-missing-ACS-capabilities-4..patch
 
-    - name: 开始编译内核
+    - name: Fix lz4 build deps
       run: |
         cd pve-kernel
-        make V=s
+        #sed -i "s/lz4/liblz4-1/g" debian/control.in
+    
+    - name: Fix DEBUG_INFO_BTF
+      run: |
+        cd pve-kernel
+        sed -i 's/${LINUX_TOOLS_DBG_DEB}//' Makefile
+        #sed -i "s/-e CONFIG_PAGE_TABLE_ISOLATION/-e CONFIG_PAGE_TABLE_ISOLATION \\\ \n-d CONFIG_DEBUG_INFO_BTF/" debian/rules
+    
+    - name: Freeing up disk space on CI system
+      run: |
+        dpkg-query -Wf '${Installed-Size}\t${Package}\n' | sort -n | tail -n 100
+        df -h
+        sudo apt-get remove -y '^ghc-8.*'
+        sudo apt-get remove -y '^dotnet-.*'
+        sudo apt-get remove -y '^llvm-.*'
+        sudo apt-get remove -y 'php.*'
+        sudo apt-get remove -y azure-cli google-cloud-sdk hhvm google-chrome-stable firefox powershell mono-devel
+        sudo apt-get autoremove -y
+        sudo apt-get clean
+        df -h
+        rm -rf /usr/share/dotnet/
+        df -h
+
+    - name: Compile the PVE kernel
+      id: compile
+      run: |
+        cd pve-kernel
+        echo -e "$(nproc) thread compile"
+        make -j$(nproc) || make -j1 V=s
+        echo "::set-output name=status::success"
 
     - name: 上传内核
       uses: actions/upload-artifact@main
