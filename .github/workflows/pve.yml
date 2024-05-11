@@ -24,6 +24,17 @@ jobs:
     - name: 准备开始
       uses: actions/checkout@v2
 
+    - name: 清理磁盘空间
+      uses: easimon/maximize-build-space@master
+      with: 
+        root-reserve-mb: 2048
+        swap-size-mb: 1
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
+
     - name: 安装依赖
       env:
         DEBIAN_FRONTEND: noninteractive
@@ -55,7 +66,8 @@ jobs:
         #sudo cp -r /usr/local/lib/* /usr/lib/
 
     - name: 下载源码
-      run: 
+      working-directory: ./
+      run: |
         git clone git://git.proxmox.com/git/pve-kernel.git pve-kernel
 
     - name: 修改ACS
