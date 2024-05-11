@@ -62,6 +62,7 @@ jobs:
     - name: 常用配置修改
       run: |
         cd lede
+        git clone https://github.com/zjt37/zheng
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
