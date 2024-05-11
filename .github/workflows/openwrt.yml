@@ -64,9 +64,9 @@ jobs:
         cd lede
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
-        git clone https://github.com/fw876/helloworld package/gd772/ssrplus
-        git clone https://github.com/vernesong/OpenClash package/gd772/openclash
-        rm -rf package/gd772/openclash/.github package/gd772/openclash/img package/gd772/openclash/LICENSE package/gd772/openclash/README.md
+        git clone https://github.com/fw876/helloworld package/zheng/ssrplus
+        git clone https://github.com/vernesong/OpenClash package/zheng/openclash
+        rm -rf package/zheng/openclash/.github package/zheng/openclash/img package/zheng/openclash/LICENSE package/zheng/openclash/README.md
         rm -rf ./feeds/luci/applications/luci-app-netdata
         git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
