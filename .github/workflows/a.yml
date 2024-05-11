@@ -1,4 +1,4 @@
-name: 触发compile启动编译
+name: 测试SSH连接
 on:
   repository_dispatch:
   workflow_dispatch:
