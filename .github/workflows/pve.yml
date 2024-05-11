@@ -1,4 +1,4 @@
-name: 测试SSH连接
+name: PVE内核修改
 on:
   repository_dispatch:
   workflow_dispatch:
