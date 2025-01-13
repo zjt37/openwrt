@@ -75,7 +75,7 @@ jobs:
         rm -rf package/zheng/luci-theme-opentopd
         rm -rf package/zheng/luci-theme-tomato
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        git clone https://github.com/zjt37/zheng package/zheng
+        git clone https://github.com/zjt37/zheng package/zh
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
         sed -i 's/TTYD 终端/命令行/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
