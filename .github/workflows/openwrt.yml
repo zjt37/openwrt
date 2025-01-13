@@ -66,9 +66,16 @@ jobs:
         git clone https://github.com/kenzok8/openwrt-packages package/zheng
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
+        rm -rf package/zheng/luci-theme-alpha
+        rm -rf package/zheng/luci-theme-argon
+        rm -rf package/zheng/luci-theme-argone
+        rm -rf package/zheng/luci-theme-atmaterial_new
+        rm -rf package/zheng/luci-theme-design
+        rm -rf package/zheng/luci-theme-ifit
+        rm -rf package/zheng/luci-theme-opentopd
+        rm -rf package/zheng/luci-theme-tomato
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        rm -rf ./feeds/luci/applications/luci-app-netdata
-        git clone https://github.com/Jason6111/luci-app-netdata ./feeds/luci/applications/luci-app-netdata/
+        git clone https://github.com/zjt37/zheng package/zheng
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
         sed -i 's/TTYD 终端/命令行/g' feeds/luci/applications/luci-app-ttyd/po/zh-cn/terminal.po
