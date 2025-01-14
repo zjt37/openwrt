@@ -1,26 +1,35 @@
-name: 测试SSH连接
-on:
-  repository_dispatch:
-  workflow_dispatch:
-    inputs:
-      ssh:
-        description: '编译OpenWrt固件-SSH远程：改为"ssh"打开SSH连接'
-        required: true
-        default: 'ssh-actions'
+name: 批量保活进程
 
+on:
+  schedule:
+    # 使用cron表达式定义任务运行的时间
+    # github使用utc时间
+    - cron: '3 22 * * *' #北京时间6点
+  workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-20.04
-    if: github.event.repository.owner.id == github.event.sender.id
-    
-    steps:
-    - name: 准备结束
-      uses: actions/checkout@v2
+  deploy:
+    runs-on: ubuntu-latest
 
-    - name: SSH远程连接服务器
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: env.SSH_ACTIONS == 'true' || (github.event.inputs.ssh == 'ssh' && github.event.inputs.ssh  != 'false')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: 安装依赖
+        run: |
+          sudo apt-get install sshpass
+          sudo apt-get install jq
+
+      - name: 登录各个serv00并执行保活脚本
+        env:
+          HOSTS_JSON: ${{ secrets.HOSTS_JSON }}
+          TELEGRAM_TOKEN: ${{secrets.TELEGRAM_TOKEN}}
+          TELEGRAM_USERID: ${{secrets.TELEGRAM_USERID}}
+          WXSENDKEY: ${{secrets.WXSENDKEY}}
+          SENDTYPE: ${{secrets.SENDTYPE}}
+          BUTTON_URL: ${{secrets.BUTTON_URL}}
+          AUTOUPDATE: ${{vars.AUTOUPDATE}}
+          LOGININFO: ${{vars.LOGININFO}}
+        run: |
+          chmod +x ./revive.sh
+          ./revive.sh
