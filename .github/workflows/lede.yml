@@ -73,7 +73,7 @@ jobs:
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/files/bin/config_generate
+        sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/luci2/bin/config_generate
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
   
     - name: 配置固件文件
