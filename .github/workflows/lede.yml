@@ -62,6 +62,19 @@ jobs:
     - name: 更新和安装软件包
       run: |
         cd lede
+        rm -f ./feeds.conf.default
+        touch ./feeds.conf.default
+        echo "src-git packages https://github.com/coolsnowwolf/packages" >> "feeds.conf.default"
+        echo "src-git luci https://github.com/coolsnowwolf/luci" >> "feeds.conf.default"
+        echo "#src-git luci https://github.com/coolsnowwolf/luci.git;openwrt-23.05" >> "feeds.conf.default"
+        echo "src-git routing https://github.com/coolsnowwolf/routing" >> "feeds.conf.default"
+        echo "src-git telephony https://github.com/openwrt/telephony.git;openwrt-23.05" >> "feeds.conf.default"
+        echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf.default"
+        echo "#src-git oui https://github.com/zhaojh329/oui.git" >> "feeds.conf.default"
+        echo "#src-git video https://github.com/openwrt/video.git" >> "feeds.conf.default"
+        echo "#src-git targets https://github.com/openwrt/targets.git" >> "feeds.conf.default"
+        echo "#src-git oldpackages http://git.openwrt.org/packages.git" >> "feeds.conf.default"
+        echo "#src-link custom /usr/src/openwrt/custom-feed" >> "feeds.conf.default"
         ./scripts/feeds update -a
         ./scripts/feeds install -a
         ./scripts/feeds install -a
@@ -73,7 +86,11 @@ jobs:
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
+        git clone https://github.com/WukongMaster/luci-theme-opentomcat.git package/zheng/luci-theme-opentomcat
+        git clone https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat -b js package/zheng/luci-theme-kucat
+        sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/luci2/bin/config_generate
+        sed -i "s/hostname='.*'/hostname='openwrt'/g" package/base-files/luci2/bin/config_generate
         sed -i 's/ShadowSocksR Plus+/SSR Plus+/g' package/zheng/ssrplus/luci-app-ssr-plus/luasrc/controller/shadowsocksr.lua
   
     - name: 配置固件文件
@@ -85,26 +102,8 @@ jobs:
         CONFIG_TARGET_x86=y
         CONFIG_TARGET_x86_64=y
         CONFIG_TARGET_x86_64_DEVICE_generic=y
-        CONFIG_CGROUPFS_MOUNT_KERNEL_CGROUPS=y
-        CONFIG_DOCKER_CGROUP_OPTIONS=y
-        CONFIG_DOCKER_NET_MACVLAN=y
-        CONFIG_DOCKER_OPTIONAL_FEATURES=y
-        CONFIG_DOCKER_STO_EXT4=y
         # CONFIG_GRUB_EFI_IMAGES is not set
         CONFIG_GRUB_IMAGES=y
-        CONFIG_KERNEL_CFQ_GROUP_IOSCHED=y
-        CONFIG_KERNEL_CGROUP_DEVICE=y
-        CONFIG_KERNEL_CGROUP_FREEZER=y
-        CONFIG_KERNEL_CGROUP_HUGETLB=y
-        CONFIG_KERNEL_CGROUP_NET_PRIO=y
-        CONFIG_KERNEL_CGROUP_PERF=y
-        CONFIG_KERNEL_HUGETLBFS=y
-        CONFIG_KERNEL_HUGETLB_PAGE=y
-        CONFIG_KERNEL_MEMCG_SWAP_ENABLED=y
-        CONFIG_KERNEL_NET_CLS_CGROUP=y
-        CONFIG_KERNEL_PERF_EVENTS=y
-        CONFIG_KERNEL_TRANSPARENT_HUGEPAGE=y
-        CONFIG_KERNEL_TRANSPARENT_HUGEPAGE_ALWAYS=y
         CONFIG_OPENSSH_LIBFIDO2=y
         # CONFIG_PACKAGE_TURBOACC_INCLUDE_BBR_CCA is not set
         CONFIG_PACKAGE_autossh=y
@@ -114,40 +113,15 @@ jobs:
         CONFIG_PACKAGE_boost=y
         CONFIG_PACKAGE_boost-program_options=y
         CONFIG_PACKAGE_boost-system=y
-        CONFIG_PACKAGE_btrfs-progs=y
-        CONFIG_PACKAGE_cgroupfs-mount=y
         CONFIG_PACKAGE_chinadns-ng=y
-        CONFIG_PACKAGE_containerd=y
         CONFIG_PACKAGE_coreutils-nohup=y
         CONFIG_PACKAGE_dbus=y
-        CONFIG_PACKAGE_docker=y
-        CONFIG_PACKAGE_docker-compose=y
-        CONFIG_PACKAGE_dockerd=y
-        # CONFIG_PACKAGE_etherwake is not set
-        # CONFIG_PACKAGE_grub2-efi is not set
         CONFIG_PACKAGE_haproxy=y
         CONFIG_PACKAGE_hysteria=y
         CONFIG_PACKAGE_ipt2socks=y
-        CONFIG_PACKAGE_kmod-br-netfilter=y
-        CONFIG_PACKAGE_kmod-crypto-acompress=y
-        CONFIG_PACKAGE_kmod-dummy=y
-        CONFIG_PACKAGE_kmod-fs-btrfs=y
         CONFIG_PACKAGE_kmod-inet-diag=y
-        # CONFIG_PACKAGE_kmod-ipt-offload is not set
-        CONFIG_PACKAGE_kmod-ipt-physdev=y
-        CONFIG_PACKAGE_kmod-lib-lzo=y
-        CONFIG_PACKAGE_kmod-lib-raid6=y
-        CONFIG_PACKAGE_kmod-lib-xor=y
-        CONFIG_PACKAGE_kmod-lib-zlib-deflate=y
-        CONFIG_PACKAGE_kmod-lib-zstd=y
         CONFIG_PACKAGE_kmod-netlink-diag=y
-        # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
-        # CONFIG_PACKAGE_kmod-nf-flow is not set
-        CONFIG_PACKAGE_kmod-nf-ipvs=y
-        # CONFIG_PACKAGE_kmod-tcp-bbr is not set
-        CONFIG_PACKAGE_kmod-veth=y
         CONFIG_PACKAGE_libatomic=y
-        CONFIG_PACKAGE_libattr=y
         CONFIG_PACKAGE_libavahi-dbus-support=y
         CONFIG_PACKAGE_libcap=y
         CONFIG_PACKAGE_libcap-bin=y
@@ -163,10 +137,8 @@ jobs:
         CONFIG_PACKAGE_libltdl=y
         CONFIG_PACKAGE_liblua5.3=y
         CONFIG_PACKAGE_liblzma=y
-        CONFIG_PACKAGE_liblzo=y
         CONFIG_PACKAGE_libparted=y
         CONFIG_PACKAGE_libruby=y
-        CONFIG_PACKAGE_libseccomp=y
         CONFIG_PACKAGE_libssh=y
         CONFIG_PACKAGE_libstdcpp=y
         CONFIG_PACKAGE_libuv=y
@@ -174,11 +146,11 @@ jobs:
         CONFIG_PACKAGE_libyaml=y
         # CONFIG_PACKAGE_luci-app-accesscontrol is not set
         CONFIG_PACKAGE_luci-app-adguardhome=y
+        CONFIG_PACKAGE_luci-app-argone-config=y
         # CONFIG_PACKAGE_luci-app-arpbind is not set
         # CONFIG_PACKAGE_luci-app-autoreboot is not set
         # CONFIG_PACKAGE_luci-app-ddns is not set
         CONFIG_PACKAGE_luci-app-diskman=y
-        CONFIG_PACKAGE_luci-app-dockerman=y
         # CONFIG_PACKAGE_luci-app-nlbwmon is not set
         CONFIG_PACKAGE_luci-app-openclash=y
         CONFIG_PACKAGE_luci-app-passwall=y
@@ -204,17 +176,14 @@ jobs:
         # CONFIG_PACKAGE_luci-app-vsftpd is not set
         # CONFIG_PACKAGE_luci-app-wol is not set
         CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
+        CONFIG_PACKAGE_luci-i18n-argone-config-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-diskman-zh-cn=y
-        CONFIG_PACKAGE_luci-i18n-dockerman-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-ttyd-zh-cn=y
-        CONFIG_PACKAGE_luci-lib-docker=y
+        CONFIG_PACKAGE_luci-theme-opentomcat=y
+        CONFIG_PACKAGE_luci-theme-kucat=y
         CONFIG_PACKAGE_luci-theme-atmaterial_new=y
-        CONFIG_PACKAGE_luci-theme-material=y
-        # CONFIG_PACKAGE_miniupnpd is not set
-        CONFIG_PACKAGE_mount-utils=y
         CONFIG_PACKAGE_msgpack-c=y
-        # CONFIG_PACKAGE_nlbwmon is not set
         CONFIG_PACKAGE_openssh-client=y
         CONFIG_PACKAGE_openssh-client-utils=y
         CONFIG_PACKAGE_openssh-keygen=y
@@ -235,20 +204,16 @@ jobs:
         CONFIG_PACKAGE_ruby-stringio=y
         CONFIG_PACKAGE_ruby-strscan=y
         CONFIG_PACKAGE_ruby-yaml=y
-        CONFIG_PACKAGE_runc=y
         CONFIG_PACKAGE_shadowsocks-libev-ss-local=y
         CONFIG_PACKAGE_shadowsocks-libev-ss-redir=y
         CONFIG_PACKAGE_sing-box=y
         CONFIG_PACKAGE_smartmontools=y
         CONFIG_PACKAGE_sshtunnel=y
-        CONFIG_PACKAGE_tini=y
         CONFIG_PACKAGE_tmate=y
         CONFIG_PACKAGE_trojan-plus=y
         CONFIG_PACKAGE_ttyd=y
         CONFIG_PACKAGE_unzip=y
         CONFIG_PACKAGE_v2ray-plugin=y
-        # CONFIG_PACKAGE_vlmcsd is not set
-        # CONFIG_PACKAGE_vsftpd-alt is not set
         CONFIG_PACKAGE_xz=y
         CONFIG_PACKAGE_xz-utils=y
         CONFIG_PARTED_READLINE=y
@@ -262,11 +227,21 @@ jobs:
         # CONFIG_TARGET_IMAGES_GZIP is not set
         CONFIG_TARGET_KERNEL_PARTSIZE=200
         CONFIG_TARGET_ROOTFS_PARTSIZE=700
-        # CONFIG_VMDK_IMAGES is not set
         CONFIG_boost-compile-visibility-hidden=y
         CONFIG_boost-runtime-shared=y
         CONFIG_boost-static-and-shared-libs=y
         CONFIG_boost-variant-release=y
+        CONFIG_PACKAGE_etherwake=y
+        CONFIG_PACKAGE_grub2-efi=y
+        CONFIG_PACKAGE_kmod-ipt-offload=y
+        CONFIG_PACKAGE_kmod-nf-conntrack-netlink=y
+        CONFIG_PACKAGE_kmod-nf-flow=y
+        CONFIG_PACKAGE_kmod-tcp-bbr=y
+        CONFIG_PACKAGE_miniupnpd=y
+        CONFIG_PACKAGE_nlbwmon=y
+        CONFIG_PACKAGE_vlmcsd=y
+        CONFIG_PACKAGE_vsftpd-alt=y
+        CONFIG_VSFTPD_USE_UCI_SCRIPTS=y
         EOF
         sed -i 's/^[ \t]*//g' ./.config
         make defconfig
