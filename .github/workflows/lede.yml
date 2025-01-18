@@ -86,8 +86,7 @@ jobs:
         git clone https://github.com/kenzok8/small package/zheng/passwall
         rm -rf package/zheng/passwall/luci-app-passwall2 package/zheng/passwall/luci-app-ssr-plus package/zheng/passwall/luci-app-bypass
         git clone https://github.com/fw876/helloworld package/zheng/ssrplus
-        git clone https://github.com/WukongMaster/luci-theme-opentomcat.git package/zheng/luci-theme-opentomcat
-        git clone https://github.com/sirpdboy/luci-theme-kucat package/luci-theme-kucat -b js package/zheng/luci-theme-kucat
+        git clone https://github.com/WukongMaster/luci-theme-opentomcat package/zheng/luci-theme-opentomcat
         sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/luci2/bin/config_generate
         sed -i "s/hostname='.*'/hostname='openwrt'/g" package/base-files/luci2/bin/config_generate
@@ -181,7 +180,6 @@ jobs:
         CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-ttyd-zh-cn=y
         CONFIG_PACKAGE_luci-theme-opentomcat=y
-        CONFIG_PACKAGE_luci-theme-kucat=y
         CONFIG_PACKAGE_luci-theme-atmaterial_new=y
         CONFIG_PACKAGE_msgpack-c=y
         CONFIG_PACKAGE_openssh-client=y
