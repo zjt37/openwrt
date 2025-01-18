@@ -87,6 +87,7 @@ jobs:
       run: |
         cd lede
         git clone https://github.com/WukongMaster/luci-theme-opentomcat.git package/luci-theme-opentomcat
+        git_sparse_clone master https://github.com/kenzok8/openwrt-packages adguardhome luci-app-adguardhome
         sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
         sed -i "s/192.168.1.1/192.168.2.3/g" package/base-files/luci2/bin/config_generate
         sed -i "s/hostname='.*'/hostname='openwrt'/g" package/base-files/luci2/bin/config_generate
