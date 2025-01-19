@@ -127,6 +127,15 @@ jobs:
         # CONFIG_PACKAGE_ksmbd-avahi-service is not set
         # CONFIG_PACKAGE_ksmbd-hotplug is not set
         # CONFIG_PACKAGE_ksmbd-server is not set
+        # CONFIG_PACKAGE_luci-app-samba is not set
+        # CONFIG_PACKAGE_luci-app-samba4 is not set
+        # CONFIG_PACKAGE_samba36-server is not set
+        # CONFIG_PACKAGE_samba4-admin is not set
+        # CONFIG_PACKAGE_samba4-client is not set
+        # CONFIG_PACKAGE_samba4-libs is not set
+        # CONFIG_PACKAGE_samba4-server is not set
+        # CONFIG_PACKAGE_samba4-utils is not set
+        
         CONFIG_PACKAGE_libatomic=y
         CONFIG_PACKAGE_libavahi-dbus-support=y
         CONFIG_PACKAGE_libcap=y
