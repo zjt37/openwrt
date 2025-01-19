@@ -124,6 +124,10 @@ jobs:
         # CONFIG_PACKAGE_kmod-nf-flow is not set
         CONFIG_PACKAGE_kmod-nf-socket=y
         # CONFIG_PACKAGE_kmod-tcp-bbr is not set
+        # CONFIG_PACKAGE_kmod-fs-ksmbd is not set
+        # CONFIG_PACKAGE_ksmbd-avahi-service is not set
+        # CONFIG_PACKAGE_ksmbd-hotplug is not set
+        # CONFIG_PACKAGE_ksmbd-server is not set
         CONFIG_PACKAGE_libatomic=y
         CONFIG_PACKAGE_libavahi-dbus-support=y
         CONFIG_PACKAGE_libcap=y
