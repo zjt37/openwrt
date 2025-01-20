@@ -83,6 +83,9 @@ jobs:
         sed -i 's/192.168.1.1/192.168.2.3/g' package/base-files/files/bin/config_generate
         sed -i "s/hostname='.*'/hostname='openwrt'/g" package/base-files/files/bin/config_generate
         sed -i 's/KERNEL_PATCHVER:=6.6/KERNEL_PATCHVER:=6.12/g' ./target/linux/x86/Makefile
+        sed -i 's/luci-theme-bootstrap/luci-theme-atmaterial_brown/g' feeds/luci/collections/luci/Makefile
+        sed -i 's/os.date()/os.date("%Y-%m-%d %H:%M:%S")/g' package/lean/autocore/files/*/index.htm
+        sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/files/x86/autocore
   
     - name: 配置固件文件
       run: |
@@ -95,13 +98,37 @@ jobs:
         CONFIG_TARGET_x86_64_DEVICE_generic=y
         # CONFIG_GRUB_EFI_IMAGES is not set
         CONFIG_GRUB_IMAGES=y
+        # CONFIG_KERNEL_BTRFS_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_CIFS_ACL is not set
+        # CONFIG_KERNEL_EXT4_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_EXT4_FS_SECURITY is not set
+        # CONFIG_KERNEL_F2FS_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_F2FS_FS_SECURITY is not set
+        # CONFIG_KERNEL_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_HFSPLUS_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_HFS_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_JFFS2_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_JFFS2_FS_SECURITY is not set
+        # CONFIG_KERNEL_JFS_POSIX_ACL is not set
+        # CONFIG_KERNEL_NET_L3_MASTER_DEV is not set
+        # CONFIG_KERNEL_NFS_ACL_SUPPORT is not set
+        # CONFIG_KERNEL_REISER_FS_POSIX_ACL is not set
+        # CONFIG_KERNEL_TMPFS_POSIX_ACL is not set
+        # CONFIG_KERNEL_UBIFS_FS_SECURITY is not set
+        # CONFIG_KERNEL_XFS_POSIX_ACL is not set
+        CONFIG_NODEJS_18=y
+        # CONFIG_NODEJS_22 is not set
         CONFIG_OPENSSH_LIBFIDO2=y
+        CONFIG_PACKAGE_6in4=y
         CONFIG_PACKAGE_adguardhome=y
+        # CONFIG_PACKAGE_automount is not set
+        # CONFIG_PACKAGE_autosamba is not set
         CONFIG_PACKAGE_autossh=y
         CONFIG_PACKAGE_avahi-dbus-daemon=y
         CONFIG_PACKAGE_bash=y
         CONFIG_PACKAGE_blkid=y
         CONFIG_PACKAGE_boost=y
+        CONFIG_PACKAGE_boost-date_time=y
         CONFIG_PACKAGE_boost-program_options=y
         CONFIG_PACKAGE_boost-system=y
         CONFIG_PACKAGE_chinadns-ng=y
@@ -111,31 +138,47 @@ jobs:
         CONFIG_PACKAGE_geoview=y
         # CONFIG_PACKAGE_grub2-efi is not set
         CONFIG_PACKAGE_haproxy=y
+        CONFIG_PACKAGE_hysteria=y
+        CONFIG_PACKAGE_i915-firmware=y
+        CONFIG_PACKAGE_i915-firmware-gsc=y
+        CONFIG_PACKAGE_i915-firmware-guc=y
+        CONFIG_PACKAGE_i915-firmware-huc=y
+        CONFIG_PACKAGE_ip6tables-extra=y
+        CONFIG_PACKAGE_ip6tables-mod-nat=y
         CONFIG_PACKAGE_ipt2socks=y
         CONFIG_PACKAGE_iptables-mod-iprange=y
         CONFIG_PACKAGE_iptables-mod-socket=y
+        CONFIG_PACKAGE_ipv6helper=y
+        # CONFIG_PACKAGE_kmod-crypto-ccm is not set
+        # CONFIG_PACKAGE_kmod-crypto-cmac is not set
+        # CONFIG_PACKAGE_kmod-crypto-des is not set
+        # CONFIG_PACKAGE_kmod-crypto-md4 is not set
+        # CONFIG_PACKAGE_kmod-crypto-md5 is not set
+        # CONFIG_PACKAGE_kmod-crypto-sha256 is not set
+        # CONFIG_PACKAGE_kmod-fs-exfat is not set
+        # CONFIG_PACKAGE_kmod-fs-ext4 is not set
+        # CONFIG_PACKAGE_kmod-fs-ksmbd is not set
+        # CONFIG_PACKAGE_kmod-fs-ntfs3 is not set
         CONFIG_PACKAGE_kmod-inet-diag=y
+        CONFIG_PACKAGE_kmod-ip6tables-extra=y
         CONFIG_PACKAGE_kmod-ipt-iprange=y
         # CONFIG_PACKAGE_kmod-ipt-offload is not set
         CONFIG_PACKAGE_kmod-ipt-socket=y
+        CONFIG_PACKAGE_kmod-iptunnel=y
+        CONFIG_PACKAGE_kmod-iptunnel4=y
+        # CONFIG_PACKAGE_kmod-lib-crc16 is not set
         CONFIG_PACKAGE_kmod-netlink-diag=y
         # CONFIG_PACKAGE_kmod-nf-conntrack-netlink is not set
         # CONFIG_PACKAGE_kmod-nf-flow is not set
         CONFIG_PACKAGE_kmod-nf-socket=y
+        # CONFIG_PACKAGE_kmod-oid-registry is not set
+        # CONFIG_PACKAGE_kmod-scsi-core is not set
+        CONFIG_PACKAGE_kmod-sit=y
         # CONFIG_PACKAGE_kmod-tcp-bbr is not set
-        # CONFIG_PACKAGE_kmod-fs-ksmbd is not set
-        # CONFIG_PACKAGE_ksmbd-avahi-service is not set
-        # CONFIG_PACKAGE_ksmbd-hotplug is not set
+        # CONFIG_PACKAGE_kmod-usb-storage is not set
+        # CONFIG_PACKAGE_kmod-usb-storage-extras is not set
+        # CONFIG_PACKAGE_kmod-usb-storage-uas is not set
         # CONFIG_PACKAGE_ksmbd-server is not set
-        # CONFIG_PACKAGE_luci-app-samba is not set
-        # CONFIG_PACKAGE_luci-app-samba4 is not set
-        # CONFIG_PACKAGE_samba36-server is not set
-        # CONFIG_PACKAGE_samba4-admin is not set
-        # CONFIG_PACKAGE_samba4-client is not set
-        # CONFIG_PACKAGE_samba4-libs is not set
-        # CONFIG_PACKAGE_samba4-server is not set
-        # CONFIG_PACKAGE_samba4-utils is not set
-        
         CONFIG_PACKAGE_libatomic=y
         CONFIG_PACKAGE_libavahi-dbus-support=y
         CONFIG_PACKAGE_libcap=y
@@ -145,30 +188,31 @@ jobs:
         CONFIG_PACKAGE_libdaemon=y
         CONFIG_PACKAGE_libdbus=y
         CONFIG_PACKAGE_libeudev=y
-        CONFIG_PACKAGE_libevent2=y
         CONFIG_PACKAGE_libexpat=y
         CONFIG_PACKAGE_libfido2=y
         CONFIG_PACKAGE_libgmp=y
         CONFIG_PACKAGE_libltdl=y
         CONFIG_PACKAGE_liblua5.3=y
+        CONFIG_PACKAGE_libnetsnmp=y
+        # CONFIG_PACKAGE_libnl-core is not set
+        # CONFIG_PACKAGE_libnl-genl is not set
         CONFIG_PACKAGE_libparted=y
         CONFIG_PACKAGE_libruby=y
         CONFIG_PACKAGE_libssh=y
         CONFIG_PACKAGE_libstdcpp=y
-        CONFIG_PACKAGE_libuv=y
-        CONFIG_PACKAGE_libwebsockets-full=y
         CONFIG_PACKAGE_libyaml=y
         # CONFIG_PACKAGE_luci-app-accesscontrol is not set
         CONFIG_PACKAGE_luci-app-adguardhome=y
         # CONFIG_PACKAGE_luci-app-arpbind is not set
-        # CONFIG_PACKAGE_luci-app-autoreboot is not set
         # CONFIG_PACKAGE_luci-app-ddns is not set
         CONFIG_PACKAGE_luci-app-diskman=y
+        # CONFIG_PACKAGE_luci-app-ksmbd is not set
         # CONFIG_PACKAGE_luci-app-nlbwmon is not set
         CONFIG_PACKAGE_luci-app-openclash=y
         CONFIG_PACKAGE_luci-app-passwall=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Geoview=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Haproxy=y
+        CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Hysteria=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_ShadowsocksR_Libev_Client=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Client=y
         CONFIG_PACKAGE_luci-app-passwall_INCLUDE_Shadowsocks_Libev_Server=y
@@ -180,7 +224,10 @@ jobs:
         CONFIG_PACKAGE_luci-app-passwall_Iptables_Transparent_Proxy=y
         # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-ng is not set
         # CONFIG_PACKAGE_luci-app-rclone_INCLUDE_rclone-webui is not set
-        CONFIG_PACKAGE_luci-app-ttyd=y
+        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_ChinaDNS_NG=y
+        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Hysteria=y
+        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_IPT2Socks=y
+        CONFIG_PACKAGE_luci-app-ssr-plus_INCLUDE_Trojan=y
         # CONFIG_PACKAGE_luci-app-turboacc is not set
         # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_BBR_CCA is not set
         # CONFIG_PACKAGE_luci-app-turboacc_INCLUDE_OFFLOADING is not set
@@ -193,11 +240,8 @@ jobs:
         CONFIG_PACKAGE_luci-i18n-adguardhome-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-diskman-zh-cn=y
         CONFIG_PACKAGE_luci-i18n-passwall-zh-cn=y
-        CONFIG_PACKAGE_luci-i18n-ttyd-zh-cn=y
         CONFIG_PACKAGE_luci-theme-atmaterial_new=y
-        CONFIG_PACKAGE_luci-theme-opentomcat=y
         # CONFIG_PACKAGE_miniupnpd is not set
-        CONFIG_PACKAGE_msgpack-c=y
         # CONFIG_PACKAGE_nlbwmon is not set
         CONFIG_PACKAGE_openssh-client=y
         CONFIG_PACKAGE_openssh-client-utils=y
@@ -224,15 +268,16 @@ jobs:
         CONFIG_PACKAGE_shadowsocks-libev-ss-redir=y
         CONFIG_PACKAGE_sing-box=y
         CONFIG_PACKAGE_smartmontools=y
+        CONFIG_PACKAGE_snmpd=y
         CONFIG_PACKAGE_sshtunnel=y
-        CONFIG_PACKAGE_tmate=y
+        CONFIG_PACKAGE_trojan=y
         CONFIG_PACKAGE_trojan-plus=y
-        CONFIG_PACKAGE_ttyd=y
         CONFIG_PACKAGE_unzip=y
         CONFIG_PACKAGE_v2ray-plugin=y
         # CONFIG_PACKAGE_vlmcsd is not set
         # CONFIG_PACKAGE_vsftpd-alt is not set
         # CONFIG_PACKAGE_wol is not set
+        # CONFIG_PACKAGE_wsdd2 is not set
         CONFIG_PARTED_READLINE=y
         CONFIG_SING_BOX_WITH_CLASH_API=y
         CONFIG_SING_BOX_WITH_DHCP=y
@@ -244,6 +289,7 @@ jobs:
         # CONFIG_TARGET_IMAGES_GZIP is not set
         CONFIG_TARGET_KERNEL_PARTSIZE=200
         CONFIG_TARGET_ROOTFS_PARTSIZE=700
+        # CONFIG_USE_FS_ACL_ATTR is not set
         CONFIG_boost-compile-visibility-hidden=y
         CONFIG_boost-runtime-shared=y
         CONFIG_boost-static-and-shared-libs=y
@@ -270,4 +316,4 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: OpenWrt
-        path: lede/bin/targets/x86/64/*.img
+        path: lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img
