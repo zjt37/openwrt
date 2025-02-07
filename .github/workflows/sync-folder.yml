@@ -17,6 +17,6 @@ jobs:
           git remote add upstream https://github.com/TanZhiwen2001/luci-app-adguardhome.git
           git fetch upstream
           git checkout upstream/main -- luci-app-adguardhome
-          git add zheng
+          git add upstream/main
           git commit -m "Sync folder from upstream"
           git push origin main
