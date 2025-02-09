@@ -1,0 +1,27 @@
+name: Sync Folder
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 每天执行一次
+  push:
+    branches:
+      - main  # 在主分支有变更时触发同步
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Sync folder from another repo
+      run: |
+        git clone https://github.com/vernesong/OpenClash.git
+        rsync -av --exclude='.git' OpenClash/luci-app-openclash/ ./zheng/
+
+    - name: Commit and push changes
+      run: |
+        git add .
+        git commit -m "Sync changes from other repo"
+        git push origin main
