@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main  # 触发工作流的分支
+    workflow_dispatch:  # 允许手动触发  
 
 jobs:
   upload-folder:
