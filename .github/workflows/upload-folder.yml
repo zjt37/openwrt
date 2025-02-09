@@ -21,7 +21,7 @@ jobs:
         
 
         # 复制要上传的文件夹内容
-        cp -r luci-app-adguardhome/luci-app-adguardhome/* zheng/luci-app-adguardhome
+        cp -r luci-app-adguardhome/luci-app-adguardhome zheng/
 
         # 配置 Git
         git config --global user.name "zjt37"
