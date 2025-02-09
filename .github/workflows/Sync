@@ -1,25 +1,22 @@
-name: Sync Folder
+name: Sync Single Folder
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # 每天执行一次
+    - cron: '0 * * * *'  # 每小时同步一次
   workflow_dispatch:  # 允许手动触发
 
 jobs:
   sync:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Sync folder from another repo
-      run: |
-        git clone https://github.com/vernesong/OpenClash.git
-        rsync -av --exclude='.git' OpenClash/luci-app-openclash/ ./zheng/
-
-    - name: Commit and push changes
-      run: |
-        git add .
-        git commit -m "Sync changes from other repo"
-        git push origin main
+      - name: Sync folder from upstream
+        run: |
+          git remote add upstream https://github.com/原始作者/仓库名.git
+          git fetch upstream
+          git checkout upstream/main -- 文件夹路径
+          git add 文件夹路径
+          git commit -m "Sync folder from upstream"
+          git push origin main
