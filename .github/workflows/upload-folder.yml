@@ -1,4 +1,4 @@
-name: Upload Folder to Repository
+name: Upload Folder to Repository1
 
 on:
   push:
