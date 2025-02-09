@@ -3,9 +3,7 @@ name: Sync Folder
 on:
   schedule:
     - cron: '0 0 * * *'  # 每天执行一次
-  push:
-    branches:
-      - main  # 在主分支有变更时触发同步
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
   sync:
