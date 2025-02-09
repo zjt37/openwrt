@@ -1,10 +1,11 @@
 name: Upload Folder to Repository1
 
 on:
+workflow_dispatch:  # 允许手动触发 
   push:
     branches:
       - main  # 触发工作流的分支
-    workflow_dispatch:  # 允许手动触发  
+     
 
 jobs:
   upload-folder:
