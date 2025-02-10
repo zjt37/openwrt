@@ -306,15 +306,15 @@ jobs:
         path: lede/bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img
 
 
-      - name: 删除上次运行记录
-        env:
-          GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
-        run: |
-          current_run_id=$(curl -s -H "Authorization: token $GH_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs \
-            | jq -r '.workflow_runs[0].id')
-          previous_run_id=$(curl -s -H "Authorization: token $GH_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs \
-            | jq -r '.workflow_runs[1].id')
-          curl -X DELETE -H "Authorization: token $GH_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs/$previous_run_id
+     - name: 删除上次运行记录
+       env:
+         GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
+       run: |
+         current_run_id=$(curl -s -H "Authorization: token $GH_TOKEN" \
+           https://api.github.com/repos/${{ github.repository }}/actions/runs \
+          | jq -r '.workflow_runs[0].id')
+        previous_run_id=$(curl -s -H "Authorization: token $GH_TOKEN" \
+          https://api.github.com/repos/${{ github.repository }}/actions/runs \
+           | jq -r '.workflow_runs[1].id')
+         curl -X DELETE -H "Authorization: token $GH_TOKEN" \
+           https://api.github.com/repos/${{ github.repository }}/actions/runs/$previous_run_id
