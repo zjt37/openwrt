@@ -23,4 +23,13 @@ jobs:
           git clone https://${{ secrets.SOURCE_REPO_TOKEN }}@github.com/zjt37/zheng.git
           cd zheng
           git checkout main  # 切换到目标仓库的分支
+
+      - name: Copy folder from source to target
+        run: |
+          git clone https://github.com/TanZhiwen2001/luci-app-adguardhome.git
+          cp -r ./luci-app-adguardhome/luci-app-adguardhome/* ./zheng/luci-app-adguardhome/
+          cd zheng
+          cd luci-app-adguardhome
           ls
+
+
