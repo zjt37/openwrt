@@ -27,7 +27,7 @@ jobs:
       - name: Copy folder from source to target
         run: |
           git clone https://github.com/TanZhiwen2001/luci-app-adguardhome.git
-          cp -r ./luci-app-adguardhome/luci-app-adguardhome/* ./packages/luci-app-adguardhome/
+          cp -r ./luci-app-adguardhome/luci-app-adguardhome ./packages/
 
           
       - name: Commit and push changes to target repository
