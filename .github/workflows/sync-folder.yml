@@ -27,7 +27,6 @@ jobs:
       - name: Copy folder from source to target
         run: |
           git clone https://github.com/TanZhiwen2001/luci-app-adguardhome.git
-          rm -rf ./zheng/luci-app-adguardhome/*
           cp -r ./luci-app-adguardhome/luci-app-adguardhome/* ./zheng/luci-app-adguardhome/
 
           
@@ -35,5 +34,5 @@ jobs:
         run: |
           cd zheng
           git add .
-          git commit -m "Sync folder from source repository"
+          git commit --allow-empty -m "Sync folder from source repository (no changes detected)"
           git push origin main
