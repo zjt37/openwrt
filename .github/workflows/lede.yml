@@ -2,10 +2,8 @@ name: 编译openwrt固件
 
 on:
   schedule:
-    - cron: '0 0 * * 6'  # 每星期六 UTC 时间 00:00 运行
-  push:
-    branches:
-      - main  # 保留 push 触发，用于手动测试
+    - cron: '0 0 * * 6'  # 每星期五 UTC 时间 00:00 触发
+  workflow_dispatch:  # 允许手动触发
     
 
 jobs:
