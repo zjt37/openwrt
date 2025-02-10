@@ -1,4 +1,4 @@
-name: Sync Folder to Another Repository
+name: 同步更新软件源
 
 on:
   schedule:
@@ -20,19 +20,19 @@ jobs:
 
       - name: Clone target repository
         run: |
-          git clone https://${{ secrets.SOURCE_REPO_TOKEN }}@github.com/zjt37/zheng.git
-          cd zheng
+          git clone https://${{ secrets.SOURCE_REPO_TOKEN }}@github.com/zjt37/packages.git
+          cd packages
           git checkout main  # 切换到目标仓库的分支
 
       - name: Copy folder from source to target
         run: |
           git clone https://github.com/TanZhiwen2001/luci-app-adguardhome.git
-          cp -r ./luci-app-adguardhome/luci-app-adguardhome/* ./zheng/luci-app-adguardhome/
+          cp -r ./luci-app-adguardhome/luci-app-adguardhome/* ./packages/luci-app-adguardhome/
 
           
       - name: Commit and push changes to target repository
         run: |
-          cd zheng
+          cd packages
           git add .
           git commit --allow-empty -m "Sync folder from source repository (no changes detected)"
           git push origin main
