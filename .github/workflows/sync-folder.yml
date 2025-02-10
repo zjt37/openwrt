@@ -44,18 +44,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.SOURCE_REPO_TOKEN }}
         run: |
-         # 获取当前 workflow ID 和当前 run ID
-          current_run_id=$(curl -s -H "Authorization: token $SOURCE_REPO_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs \
-            | jq -r '.workflow_runs[0].id')
-
-        # 获取上次的 workflow run ID
-          previous_run_id=$(curl -s -H "Authorization: token $SOURCE_REPO_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs \
-            | jq -r '.workflow_runs[1].id')
- 
-        # 删除上次的 workflow run
-          curl -X DELETE -H "Authorization: token $SOURCE_REPO_TOKEN" \
-            https://api.github.com/repos/${{ github.repository }}/actions/runs/$previous_run_id
+         
           
 
