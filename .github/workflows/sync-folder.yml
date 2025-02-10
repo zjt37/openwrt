@@ -1,0 +1,26 @@
+name: Sync Folder to Another Repository
+
+on:
+  schedule:
+    - cron: '0 0 * * 5'  # 每星期五 UTC 时间 00:00 触发
+  workflow_dispatch:  # 允许手动触发
+
+jobs:
+  sync-folder:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v3
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "zjt37"
+          git config --global user.email "27096491@qq.com"
+
+      - name: Clone target repository
+        run: |
+          git clone https://${{ secrets.SOURCE_REPO_TOKEN }}@github.com/zjt37/zheng.git
+          cd zheng
+          git checkout main  # 切换到目标仓库的分支
+          ls
